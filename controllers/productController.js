@@ -51,11 +51,17 @@ exports.editProduct = async (req, res) => {
       [productName, productMrp, productSaleprice, productGstRate, id]
     )
     .then((data) => {
-      return res.status(200).json({
-        success: true,
-        message: "Updated successfully!",
-        data: data.rows[0],
-      });
+      if (data.rowCount === 0)
+        return res.status(400).json({
+          success: false,
+          message: "Product with this id was not found",
+        });
+      else
+        return res.status(200).json({
+          success: true,
+          message: "Updated successfully!",
+          data: data.rows[0],
+        });
     })
     .catch((err) => {
       console.log(err);
@@ -68,11 +74,17 @@ exports.getProductById = async (req, res) => {
   client
     .query(`    SELECT * FROM product WHERE id=$1;  `, [id])
     .then((data) => {
-      return res.json({
-        success: true,
-        message: "success",
-        data: data.rows[0],
-      });
+      if (data.rowCount === 0)
+        return res.status(400).json({
+          success: false,
+          message: "Product with this id does not exist",
+        });
+      else
+        return res.json({
+          success: true,
+          message: "success",
+          data: data.rows[0],
+        });
     })
     .catch((err) => {
       return res.sendStatus(500);
