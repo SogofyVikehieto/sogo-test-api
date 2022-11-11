@@ -7,9 +7,11 @@ const {
   getProducts,
   addProduct,
   editProduct,
+  getProductById,
 } = require("../controllers/productController");
 
 router.get("/", getProducts);
+router.get("/:id", getProductById);
 router.post("/", addProductValidation, addProduct);
 router.put("/", editProductValidation, editProduct);
 

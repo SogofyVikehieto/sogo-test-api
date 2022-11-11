@@ -4,7 +4,7 @@ exports.getProducts = async (req, res) => {
   client
     .query("SELECT * FROM product")
     .then((data) => {
-      return res.send(data.rows);
+      return res.json({ success: true, message: "success", data: data.rows });
     })
     .catch((err) => {
       return res.sendStatus(500);
@@ -26,7 +26,11 @@ exports.addProduct = async (req, res) => {
       [productName, productMrp, productSaleprice, productGstRate]
     )
     .then((data) => {
-      return res.status(201).send(data.rows[0]);
+      return res.status(201).json({
+        success: true,
+        message: "Added successfully!",
+        data: data.rows[0],
+      });
     })
     .catch((err) => {
       console.log(err);
@@ -47,10 +51,30 @@ exports.editProduct = async (req, res) => {
       [productName, productMrp, productSaleprice, productGstRate, id]
     )
     .then((data) => {
-      return res.status(200).send(data.rows[0]);
+      return res.status(200).json({
+        success: true,
+        message: "Updated successfully!",
+        data: data.rows[0],
+      });
     })
     .catch((err) => {
       console.log(err);
+      return res.sendStatus(500);
+    });
+};
+
+exports.getProductById = async (req, res) => {
+  const { id } = req.params;
+  client
+    .query(`    SELECT * FROM product WHERE id=$1;  `, [id])
+    .then((data) => {
+      return res.json({
+        success: true,
+        message: "success",
+        data: data.rows[0],
+      });
+    })
+    .catch((err) => {
       return res.sendStatus(500);
     });
 };

@@ -1,0 +1,93 @@
+GET PRODUCTS
+    endpoint = '/api/product'
+    method= get 
+
+    returned data: [
+        {
+            "id": 1,
+            "product_name": "marco",
+            "product_mrp": "28.99",
+            "product_saleprice": "24.99",
+            "product_gstrate": "GST@28"
+        },
+        {
+            "id": 4,
+            "product_name": "marco",
+            "product_mrp": "28.99",
+            "product_saleprice": "24.99",
+            "product_gstrate": "GST@28"
+        },
+        
+        {
+            "id": 3,
+            "product_name": "Bugatti",
+            "product_mrp": "78.99",
+            "product_saleprice": "24.99",
+            "product_gstrate": "GST@23"
+        },
+        {
+            "id": 7,
+            "product_name": "Lambo",
+            "product_mrp": "1000000.99",
+            "product_saleprice": "849000.99",
+            "product_gstrate": "GST@23"
+        }
+        ]
+
+GET ONE PRODUCT
+    endpoint: '/api/product/{id}'
+    method: get
+    response: {
+        "success": true,
+        "message": "success",
+        "data": {
+            "id": 1,
+            "product_name": "marco",
+            "product_mrp": "28.99",
+            "product_saleprice": "24.99",
+            "product_gstrate": "GST@28"
+        }
+}
+
+ADD PRODUCT
+    endpoint: '/api/product'
+    method: post 
+    request body: {
+        "productName": "Lambo",
+        "productMrp": "1000000.99",
+        "productSaleprice": "849000.99",
+        "productGstRate": "GST@23"
+    }
+    response: {
+        success: true,
+        message: 'Added successfully',
+        data: {
+            "id": 7,
+            "product_name": "Lambo",
+            "product_mrp": "1000000.99",
+            "product_saleprice": "849000.99",
+            "product_gstrate": "GST@23"
+        }        
+    }
+
+EDIT PRODUCT
+    endpoint: '/api/product'
+    method: put 
+    request body: {
+        "id": 3,
+        "productName": "Bugatti",
+        "productMrp": "78.99",
+        "productSaleprice": "24.99",
+        "productGstRate": "GST@23"
+    }
+    response: {
+        success: true,
+        message: 'Updated successfully',
+        data: {
+             "id": 3,
+            "product_name": "Bugatti",
+            "product_mrp": "78.99",
+            "product_saleprice": "24.99",
+            "product_gstrate": "GST@23"
+        }
+    }
